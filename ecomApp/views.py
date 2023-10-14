@@ -420,7 +420,65 @@ class Another_UserBankAccountView(viewsets.ModelViewSet):
             return Response(serializer.data, status=200)
         except UserBankAccount.DoesNotExist:
             return Response({"error": "Bank detail not found for the given user ID"}, status=404)
+        
+    def create(self, request):
+        user_id = request.data.get('user_id')
+        bank_account_data = request.data.get('bank_account_data')
+        user = User.objects.get(pk=user_id)
+        print(user)
 
+        muser = ModicareUser.objects.get(user=user)
+        print(muser)
+        # Create a new UserBankAccount instance and associate it with the user
+        user_bank_account_data = {
+            "user": muser.pk,
+            **bank_account_data
+        }
+        print(user_bank_account_data)
+        serializer = UserBankAccountSerializer(data=user_bank_account_data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
+        
+    def put(self, request):
+        user_id = request.data.get('user_id')
+        bank_account_data = request.data.get('bank_account_data')
+
+        user = User.objects.get(pk=user_id)
+        print(user)
+        muser = ModicareUser.objects.get(user=user)
+        print(muser)
+
+        user_bank_account = UserBankAccount.objects.get(user=muser)
+        # Update the UserBankAccount record with the new data
+        # user_bank_account.user = muser
+        user_bank_account.bank_name = bank_account_data['bank_name']
+        user_bank_account.account_number = bank_account_data['account_number']
+        user_bank_account.ifsc_code = bank_account_data['ifsc_code']
+        user_bank_account.account_holder_name = bank_account_data['account_holder_name']
+
+        user_bank_account.save()
+
+        serializer = UserBankAccountSerializer(user_bank_account)
+        return Response(serializer.data, status=200)
+    
+    def delete(self, request,pk=None):
+        user_id = request.data.get('user_id')
+        user = User.objects.get(pk=user_id)
+        print(user)
+        muser = ModicareUser.objects.get(user=user)
+        print(muser.pk)
+        user_bank_account = UserBankAccount.objects.get(user=muser)
+        print(user_bank_account)
+        # Check if the user of the UserBankAccount matches the requesting user
+        # if user_bank_account.user.user == request.user:
+        user_bank_account.delete()
+        return Response({"message": "UserBankAccount deleted successfully"}, status=204)
+        # else:
+            # return Response({"error": "Permission denied"}, status=403)
 
 class UserView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
