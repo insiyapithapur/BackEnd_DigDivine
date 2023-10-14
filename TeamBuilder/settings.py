@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-klg$qd#!@a+%^=vq-g7gy0vsme$dlf@r9d9gsnge$6k8e+7@i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','0.0.0.0','127.0.0.1','djparida.pythonanywhere.com','teamsbuilders.com','www.teamsbuilders.com','3.108.238.214']
-
+ALLOWED_HOSTS = ['localhost','0.0.0.0','127.0.0.1','djparida.pythonanywhere.com','teamsbuilders.com','www.teamsbuilders.com','3.108.238.214','10.0.2.2','192.168.138.212','192.168.29.53']
 
 # Application definition
 
