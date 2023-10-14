@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>How to Collect BV</title>
+</head>
+<style>
+    .loader{
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 
+              50% 50% no-repeat rgb(249,249,249);
+    }
+    .container{
+        display: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h3><b><u>How to Collect BV</u></b></h3>
+            <div id="youtubeLinks">
+
+            </div>
+            <!-- <div class="embed-responsive embed-responsive-4by3" id="youtubeLinks">
+
+            </div> -->
+        </div>
+        <hr />
+        <ul class="list-group pt-3" id="descriptionLists">
+            
+        </ul>
+    </div>
+    <div class="loader"></div>
+</body>
+<script>
+    $(document).ready(function(){
+        setTimeout(function(){
+            $(".container").css('display', 'block');
+            $(".loader").css('display', 'none');
+        }, 2000)
+
+        var settings = {
+        "url": "https://teamsbuilders.com/protein-world/api/howtocollectbv/",
+            "method": "GET",
+            "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            response.response.youtube_link.forEach(element => {
+                console.log("youtubeele",element)
+                 $("#youtubeLinks").append(
+                    `
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <iframe class="embed-responsive-item" src="${element}"></iframe>
+                    </div>
+                    <br />
+                    `
+                 ) 
+            });  
+            response.response.description.forEach((element) => {
+                $("#descriptionLists").append(
+                    `<li class="list-group-item ${randomList()}">${element}</li>`
+                )
+            })       
+        });
+    })
+
+    const randomList = () => {
+        const list = ["list-group-item-success","list-group-item-primary","list-group-item-info","list-group-item-danger","list-group-item-warning","list-group-item-secondary"]
+        const random = Math.floor(Math.random() * list.length);
+        return list[random]
+    }
+</script>
+</html>

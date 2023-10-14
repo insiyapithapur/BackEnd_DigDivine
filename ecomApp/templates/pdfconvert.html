@@ -1,0 +1,401 @@
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style type="text/css" media="screen,print">
+    .new-page{
+        page-break-before: always !important;
+    }
+    p {
+        margin: 0;
+    }
+
+    .detail {
+        font-size: 14px;
+    }
+
+    .column-yello {
+        background: yellow;
+        width:80%
+    }
+
+    .support-data {
+        left: 32px;
+    }
+    .column {
+    float: left;
+    width: 50%;
+    padding: 1px; /* Should be removed. Only for demonstration */
+    }
+    .nest-column{
+        float: left;
+        width: 30%;
+        padding: 1px;
+    }
+    .nest-column2{
+        float: left;
+        width: 70%;
+        padding: 1px;
+    }
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+table th {
+    width: 170px;
+}
+
+.total-heading{
+    border: 1px solid #e5e0e0;
+    padding-right: 5px;
+}
+.total-calculation{
+    border: 1px solid #e5e0e0;
+}
+
+</style>
+<body class="p-5">
+    <div class="row no-gutters ">
+        <div class="column border">
+            <h1 class="font-weight-bold" style="display: inline-block; margin-top: 32px;">Teams Builders</h1>
+            <img src="https://teamsbuilders.com/media/img/logo (2).png" style="height: 62px;
+            display: inline-block;
+            margin-bottom: 15px; position: absolute;">
+        </div>
+        <div class="column  border">
+            <h3>TeamsBuilders Ltd.</h3>
+            <p>TeamsBuilders Ltd C/O Modicare ltd</p>
+            <p>Hauz Khas, South Delhi, Pincode - 110016</p>
+            <p><strong>Mob -</strong>9878685832</p>
+            <p><strong>Email -</strong> info@teamsbuilders.com</p>
+        </div>
+    </div>
+
+    <div class="row no-gutters pt-2">
+        <div class="col-lg-12 border">
+            <div class="row no-gutters">
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12" style="background-color: #97b8e5;">
+                            <h5 class="text-light">Purchase Order: </h5>
+                        </div>
+                        <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Order No.:</th>
+                                    <td>{{ order.orderNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Order Status:</th>
+                                    <td>{{ order.status }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Type Of Payment:</th>
+                                    <td>M-Wallet</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Gateway Unique ID:</th>
+                                    <td>5665669687956664545</td>
+                                </tr>
+                            </table>
+                          </div>
+                          <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Order Date:</th>
+                                    <td>{{ order.created_at }}</td>   
+                                </tr>
+                                <tr>
+                                    <th>Delivery Mode:</th>
+                                    <td>By Courier</td> 
+                                </tr>
+                                <tr>
+                                    <th>Delivery Mobile:</th>
+                                    <td></td> 
+                                </tr>
+                                <tr>
+                                    <th>PG Name:</th>
+                                    <td></td>
+                                </tr>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12" style="background-color: #97b8e5;">
+                            <h5 class="text-light">Order Details: </h5>
+                        </div>
+                        <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Consultant:</th>
+                                    <td>{{ order.distributionpoint.mob }} - {{ order.distributionpoint.dpName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{order.user.first_name}} {{ order.user.last_name }}</td> 
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>{{order.user.email}}</td> 
+                                </tr>
+                                <tr>
+                                    <th>DP ID</th>
+                                    <td>{{ order.distributionpoint.dpID }}</td>
+                                </tr>
+                            </table>
+                          </div>
+                          <div class="column">
+                            <table>
+                                <tr>
+                                    <th>DP Code:</th>
+                                    <td>{{ order.distributionpoint.dpID }}</td>  
+                                </tr>
+                                <tr>
+                                    <th>Mobile:</th>
+                                    <td>{{ order.user.mob }}</td> 
+                                </tr>
+                                <tr>
+                                    <th>City:</th>
+                                    <td>{{ order.shippingDetails.city }}</td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td></td>
+                                </tr>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12" style="background-color: #97b8e5;">
+                            <h5 class="text-light">Shipping Details: </h5>
+                        </div>
+                        <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{ order.shippingDetails.user.first_name }} {{ order.shippingDetails.user.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address:</th>
+                                    <td>{{ order.shippingDetails.address }}</td> 
+                                </tr>
+                                <tr>
+                                    <th>City:</th>
+                                    <td>{{ order.shippingDetails.city }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pincode:</th>
+                                    <td>{{ order.shippingDetails.pincode }}</td> 
+                                </tr>
+                            </table>
+                          </div>
+                          <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Mobile:</th>
+                                    <td>{{ order.shippingDetails.mobileNumber }}</td> 
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+                                    <td></td>  
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>{{ order.user.email }}</td>  
+                                </tr>
+                                <tr>
+                                    <th>Alternate Mobile No:</th>
+                                    <td>{{ order.shippingDetails.mobileNumber }}</td>
+                                </tr>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+                {% totalDiscount order.id as amount %}
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12" style="background-color: #97b8e5;">
+                            <h5 class="text-light">Product Details</h5>
+                        </div>
+                        <table class="table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:1%" scope="col">SN</th>
+                                    <th style="width:1%" scope="col">Order No</th>
+                                    <th style="width:1%" scope="col">MCA NO</th>
+                                    <th style="width:1%" scope="col">Code</th>
+                                    <th scope="col" style="min-height:50px;">Product Name</th>
+                                    <th style="width:1%" scope="col">QTY</th>
+                                    <th style="width:4%" scope="col">Total PV</th>
+                                    <th style="width:4%" scope="col">Total BV</th>
+                                    <th style="width:4%" scope="col">Unit DP</th>
+                                    <th style="width:4%" scope="col">Total DP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in orderProducts %}
+                                {% if forloop.counter <= 12  %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ product.order.orderNumber }}</td>
+                                    <td>{{ product.order.user.mob|mcaFilter  }}</td>
+                                    <td>{{ product.product.productCode }}</td>
+                                    <td>{{ product.product.productName }}</td>
+                                    <td>{{ product.productQty }}</td>
+                                    {% totalPVBV product.productQty product.product.personalVolume as totalPv %}
+                                    <td>{{ totalPv|floatformat:2 }}</td>
+                                    {% totalPVBV product.productQty product.product.businessVolume as totalBv %}
+                                    <td>{{ totalBv|floatformat:2 }}</td>
+                                    <td>{{ product.DiscountPerPiece|floatformat:2 }}</td>
+                                    {% totalPVBV product.productQty product.DiscountPerPiece as totalDp %}
+                                    <td>{{ totalDp|floatformat:2 }}</td>
+                                </tr>
+                                {% endif %}
+                               {% endfor %}
+                               {% if orderProducts|length <= 12 %}
+                               <tr>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td style="float: right"><strong>Sub Total: </strong></td>
+                                   <td>{{ amount.totalQty }}</td>
+                                   <td>{{ amount.totalPv|floatformat:2 }}</td>
+                                   <td>{{ amount.totalBv|floatformat:2 }}</td>
+                                   <td>{{ amount.discountSum|floatformat:2 }}</td>
+                                   <td>{{ amount.totalPayble|floatformat:2 }}</td>
+                               </tr>
+                               {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {% if orderProducts|length > 12 %}
+                <div class="col-lg-12 border pt-5 new-page">
+                    <div class="row no-gutters">
+                        <table class="table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:1%" scope="col">SN</th>
+                                    <th style="width:1%" scope="col">Order No</th>
+                                    <th style="width:1%" scope="col">MCA NO</th>
+                                    <th style="width:1%" scope="col">Code</th>
+                                    <th scope="col">Product Name</th>
+                                    <th style="width:1%" scope="col">QTY</th>
+                                    <th style="width:4%" scope="col">Total PV</th>
+                                    <th style="width:4%" scope="col">Total BV</th>
+                                    <th style="width:4%" scope="col">Unit DP</th>
+                                    <th style="width:4%" scope="col">Total DP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in orderProducts %}
+                                {% if forloop.counter > 12  %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ product.order.orderNumber }}</td>
+                                    <td>{{ product.order.user.mob|mcaFilter  }}</td>
+                                    <td>{{ product.product.productCode }}</td>
+                                    <td>{{ product.product.productName }}</td>
+                                    <td>{{ product.productQty }}</td>
+                                    {% totalPVBV product.productQty product.product.personalVolume as totalPv %}
+                                    <td>{{ totalPv|floatformat:2 }}</td>
+                                    {% totalPVBV product.productQty product.product.businessVolume as totalBv %}
+                                    <td>{{ totalBv|floatformat:2 }}</td>
+                                    <td>{{ product.DiscountPerPiece|floatformat:2 }}</td>
+                                    {% totalPVBV product.productQty product.DiscountPerPiece as totalDp %}
+                                    <td>{{ totalDp|floatformat:2 }}</td>
+                                </tr>
+                                {% endif %}
+                               {% endfor %}
+                               {% if orderProducts|length > 12 %}
+                               <tr>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td style="float: right"><strong>Sub Total: </strong></td>
+                                   <td>{{ amount.totalQty }}</td>
+                                   <td>{{ amount.totalPv|floatformat:2 }}</td>
+                                   <td>{{ amount.totalBv|floatformat:2 }}</td>
+                                   <td>{{ amount.discountSum|floatformat:2 }}</td>
+                                   <td>{{ amount.totalPayble|floatformat:2 }}</td>
+                               </tr>
+                               {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+                {% if orderProducts|length > 28 %}
+                   <div class="new-page"></div>
+                {% endif %}
+                <div class="col-lg-12 pt-4">
+                    <div class="row no-gutters">
+                        <div class="column">
+
+                        </div>
+                        <div class="column text-right">
+                            <div class="nest-column">
+
+                            </div>
+                            <div class="nest-column2" style="background-color: #97b8e5;">
+                                <p class="total-heading"><strong>Total Amount:</strong> <span>{{ amount.totalPayble|floatformat:2 }}</span></p>
+                                <p class="total-heading"><strong>Adjust Coupon Amount:</strong> <span>0.00</span></p>
+                                <p class="total-heading"><strong>Payable Amount:</strong> <span>{{ amount.totalPayble|floatformat:2 }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if orderProducts|length == 8 %}
+        <div class="container new-page"  style="margin-top: 50px; padding-top: 50px;">
+            {% else %}
+            <div class="container">
+            {% endif %}
+            <div class="column-yello">
+                <p>
+                    <strong>
+                        KYC compilianceis mandatory to remain active & recieve Bonus; Please submit KYC through TeamsBuilders website/App or
+                        nearest TeamsBuilders Success Centre if already not in 'Approved status'.
+                        
+                    </strong>
+                </p>
+            </div>
+            <div class="pt-2">
+                <p>
+                   Please feel free to contact us at <a href="mailto:support@teamsbuilders.com">support@teamsbuilders.com</a> for any clarification that you may require
+                </p>
+            </div>
+    
+            <div class="pt-5">
+                <p>Best Regards</p>
+                <p>TeamsBuilders @Portal Manager</p>
+            </div>
+    
+            <div style="margin-top:30px">
+                <p class="font-weight-bold">This Order was placed from the IP ADDRESS: <span class="text-primary">111.111.555.558</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+

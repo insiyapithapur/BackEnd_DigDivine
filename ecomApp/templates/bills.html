@@ -1,0 +1,279 @@
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="p-5">
+    <div class="row no-gutters ">
+        <div class="col-lg-6 border">
+            <h4 class="font-weight-bold">TeamsBuilder</h4>
+            <img src="https://teamsbuilders.com/media/img/logo.png" style="width: 50px; height:50px">
+        </div>
+        <div class="col-lg-6 text-right border">
+            <p class="font-weight-bold">TeamsBuilder Ltd.</p>
+            <p class="detail">TeamsBuilder Ltd C/O TVS Supply chain solutions ltd</p>
+            <p class="detail">Chandrasekharpur, Patia, Bhubaneswar</p>
+            <p class="detail">Mob-9878685832, Email - teamsbuilders@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="row no-gutters pt-2">
+        <div class="col-lg-12 border p-2">
+            <div class="row no-gutters">
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12 bg-info">
+                            <h5 class="text-light p-1">Purchase Order</h5>
+                        </div>
+
+                        <div class="col-lg-6 pr-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <p>Order No.:</p>
+                                        <p>Order Status:</p>
+                                        <p>Type Of Payment:</p>
+                                        <p>Payment Gateway Unique ID:</p>
+                                        <p>Order Placed By:</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.orderNumber }}</P>
+                                    <P>{{ order.status }}</P>
+                                    <P>M-Wallet</P>
+                                    <P>5665669687956664545</P>
+                                    <P>{{ order.distributionpoint.mob }} / DP Code. {{ order.distributionpoint.dpID }}</P>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 pl-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <P>Order Date:</P>
+                                        <P>Delivery Mode:</P>
+                                        <P>Delivery Mobile:</P>
+                                        <P>PG Name:</P>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.created_at }}</P>
+                                    <P>By Courier</P>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12 bg-info">
+                            <h5 class="text-light p-1">Order Details</h5>
+                        </div>
+
+                        <div class="col-lg-6 pr-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <p>Consultant:</p>
+                                        <p>Name:</p>
+                                        <p>Email:</p>
+                                        <p style="visibility: hidden"> "" </p>
+                                        <p>DP ID:</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.distributionpoint.mob }} - {{ order.distributionpoint.dpName }}</P>
+                                    <P>{{order.user.first_name}} {{ order.user.last_name }}</P>
+                                    <P>{{order.user.email}}</P>
+                                    <P style="visibility: hidden">5665669687956664545</P>
+                                    <P>{{ order.distributionpoint.dpID }}</P>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 pl-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <P>DP Code:</P>
+                                        <P>Mobile:</P>
+                                        <P>City:</P>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.distributionpoint.dpID }}</P>
+                                    <P>{{ order.user.mob }}</P>
+                                    <p>{{ order.shippingDetails.city }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12 bg-info">
+                            <h5 class="text-light p-1">Shipping Details</h5>
+                        </div>
+
+                        <div class="col-lg-6 pr-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <p>Name:</p>
+                                        <p>Address:</p>
+                                        <p>City:</p>
+                                        <p>State:</p>
+                                        <p>Pincode:</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.shippingDetails.user.first_name }} {{ order.shippingDetails.user.last_name }}</P>
+                                    <P>{{ order.shippingDetails.address }}</P>
+                                    <P>{{ order.shippingDetails.city }}</P>
+                                    <p>{{ order.shippingDetails.state }}</p>
+                                    <P>{{ order.shippingDetails.pincode }}</P>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 pl-3">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <div class="text-left">
+                                        <P>Mobile:</P>
+                                        <P style="visibility:hidden">Phone:</P>
+                                        <P>Email:</P>
+                                        <P>Alternate Mobile No:</P>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <P>{{ order.shippingDetails.mobileNumber }}</P>
+                                    <P style="visibility:hidden">{{ order.shippingDetails }}</P>
+                                    <p>{{ order.user.email }}</p>
+                                    <P style="visibility:hidden">{{ order.shippingDetails.mobileNumber }}</P>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 border">
+                    <div class="row no-gutters">
+                        <div class="col-lg-12 bg-info">
+                            <h5 class="text-light">Product Details</h5>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SN</th>
+                                    <th scope="col">Order No</th>
+                                    <th scope="col">MCA NO</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">QTY</th>
+                                    <th scope="col">Total PV</th>
+                                    <th scope="col">Total BV</th>
+                                    <th scope="col">Unit DP</th>
+                                    <th scope="col">Total DP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in orderProducts %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ product.order.orderNumber }}</td>
+                                    <td>{{ product.order.user.mob  }}</td>
+                                    <td>{{ product.order.user.first_name }} {{ product.order.user.last_name }}</td>
+                                    <td>{{ product.product.productCode }}</td>
+                                    <td>{{ product.product.productName }}</td>
+                                    <td>{{ product.productQty }}</td>
+                                    <td>{% totalPVBV product.productQty product.product.personalVolume %}</td>
+                                    <td>{% totalPVBV product.productQty product.product.businessVolume %}</td>
+                                    <td>{{ product.DiscountPerPiece }}</td>
+                                    <td>{% totalPVBV product.productQty product.DiscountPerPiece %}</td>
+                                </tr>
+                               {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% test as test %}
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6 bg-info text-light mt-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-10 text-right">
+                            <p>Total Amount:</p>
+                            <p>Total Discount</p>
+                            <p>Adjust Coupon Amount:</p>
+                            <p>Payable Amount:</p>
+                        </div>
+                        <div class="col text-right">
+                            <p>{% totalAmount order.id %}</p>
+                            {% totalDiscount order.id as amount %}
+                            <p style="text-decoration: line-through;">{{ amount.totalDiscount }}</p>
+                            <p>0.00</p>
+                            <p>{{ amount.totalPayble }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 extra-data">
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s,
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s,
+                    </p>
+                </div>
+
+                <div class="col-md-12 support-data pt-2">
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing <span class="text-primary">example@gmail.com</span> Lorem Ipsum is
+                        simply dummy text <span class="font-weight-bold ml-4">Lorem Ipsum is simply</span>
+                    </p>
+                </div>
+
+                <div class="col-md-12 pt-5 support-data">
+                    <p>Best Regards</p>
+                    <p>TeamsBuilder @Portal Manager</p>
+                </div>
+
+                <div class="col-md-12 pt-5">
+                    <p class="font-weight-bold">This Order was placed from the IP ADDRESS: <span class="text-primary">111.111.555.558</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    p {
+        margin: 0;
+    }
+
+    .detail {
+        font-size: 14px;
+    }
+
+    .extra-data {
+        background: yellow;
+        left: 32px;
+    }
+
+    .support-data {
+        left: 32px;
+    }
+</style>

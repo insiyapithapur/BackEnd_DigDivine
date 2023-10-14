@@ -1,0 +1,11 @@
+facebook.com, 3857544237703212, DIRECT, c3e20eee3f780d68
+
+google.com, pub-3450948470311260, DIRECT, f08c47fec0942fa0
+
+google.com, pub-6922004427566783, DIRECT, f08c47fec0942fa0
+
+google.com, pub-5338123324476459, DIRECT, f08c47fec0942fa0
+
+google.com, pub-3205978935428237, DIRECT, f08c47fec0942fa0
+
+google.com, pub-9974605423205115, DIRECT, f08c47fec0942fa0
