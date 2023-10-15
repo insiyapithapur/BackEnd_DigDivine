@@ -309,3 +309,8 @@ class DynamicTimerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DynamicTimer
         fields = '__all__'
+
+class CreditTimerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DynamicTimer
+        fields = '__all__'

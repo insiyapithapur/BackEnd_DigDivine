@@ -4,6 +4,7 @@ from .models import *
 # Register your models here.
 admin.site.register(StaticData)
 
+
 @admin.register(SectionData)
 class SectionData(admin.ModelAdmin):
     list_display = ('title','section_type','section_name')

@@ -776,6 +776,11 @@ class DynamicTimerView(viewsets.ModelViewSet):
     serializer_class = DynamicTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class CreditTimerView(viewsets.ModelViewSet):
+    queryset = CreditTimer.objects.all()
+    serializer_class = CreditTimerSerializer
+    permission_classes=[IsAuthenticatedAdmin]
+
 
 class CountDatas(APIView):
     permission_classes = [IsAdminUser]
