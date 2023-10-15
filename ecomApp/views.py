@@ -415,7 +415,7 @@ class UserBankAccountView(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None):
         try:
-            queryset = UserBankAccount.objects.get(user__user__id=pk)
+            queryset = UserBankAccount.objects.get(user__id=pk)
             serializer = UserBankAccountSerializer(queryset)
             return Response(serializer.data, status=200)
         except UserBankAccount.DoesNotExist:
@@ -427,11 +427,11 @@ class UserBankAccountView(viewsets.ModelViewSet):
         user = User.objects.get(pk=user_id)
         print(user)
 
-        muser = ModicareUser.objects.get(user=user)
-        print(muser)
+        # muser = ModicareUser.objects.get(user=user)
+        # print(muser)
         # Create a new UserBankAccount instance and associate it with the user
         user_bank_account_data = {
-            "user": muser.pk,
+            "user": user.pk,
             **bank_account_data
         }
         print(user_bank_account_data)
@@ -449,10 +449,10 @@ class UserBankAccountView(viewsets.ModelViewSet):
 
         user = User.objects.get(pk=user_id)
         print(user)
-        muser = ModicareUser.objects.get(user=user)
-        print(muser)
+        # muser = ModicareUser.objects.get(user=user)
+        # print(muser)
 
-        user_bank_account = UserBankAccount.objects.get(user=muser)
+        user_bank_account = UserBankAccount.objects.get(user=user.pk)
         # Update the UserBankAccount record with the new data
         # user_bank_account.user = muser
         user_bank_account.bank_name = bank_account_data['bank_name']
@@ -469,14 +469,14 @@ class UserBankAccountView(viewsets.ModelViewSet):
         user_id = request.data.get('user_id')
         user = User.objects.get(pk=user_id)
         print(user)
-        muser = ModicareUser.objects.get(user=user)
-        print(muser.pk)
-        user_bank_account = UserBankAccount.objects.get(user=muser)
+        # muser = ModicareUser.objects.get(user=user)
+        # print(muser.pk)
+        user_bank_account = UserBankAccount.objects.get(user=user.pk)
         print(user_bank_account)
         # Check if the user of the UserBankAccount matches the requesting user
         # if user_bank_account.user.user == request.user:
         user_bank_account.delete()
-        return Response({"message": "UserBankAccount deleted successfully"}, status=204)
+        return Response({"message": "UserBankAccount deleted successfully"}, status=200)
         # else:
             # return Response({"error": "Permission denied"}, status=403)
 
