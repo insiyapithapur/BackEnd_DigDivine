@@ -50,16 +50,14 @@ router.register(r'bv-admin-requests', views.BVRequestAdminView)
 router.register(r'view-all-offer', views.ViewAllOffersView)
 router.register(r'dynamic-timer', views.DynamicTimerView)
 router.register(r'credit-timer', views.CreditTimerView)
-router.register(r'Another_bank-detail', views.Another_UserBankAccountView)
+router.register(r'bank-detail', views.UserBankAccountView)
 
 urlpatterns = [
     path('', include(router.urls)),
     path('user/<pk>/', csrf_exempt(views.ModicareUserInfo.as_view())),
-    path('userinsiya/<int:user_id>/', views.user_detail, name='user_detail'),
     path('count/', views.CountDatas.as_view()),
     path('user/registration',views.UserRegistration.as_view()),
     path('getOtp/',views.UserAuthentication.as_view()),
-    path('bank-detail/<int:user_id>/',views.UserBankAccountView.as_view()),
     path('verifyOtp/', views.verifyOtp.as_view()),
     path('resend-otp/', views.ResendOtp.as_view()),
     path('<productId>/images/', views.getProductImages),

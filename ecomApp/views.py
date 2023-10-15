@@ -369,43 +369,43 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-from django.shortcuts import get_object_or_404
-@api_view(['GET'])
-def user_detail(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    if user is not None:
-        getToken = Token.objects.get(user=user)
-        print("Token from user id:   ",getToken)
-        token_header = request.META.get('HTTP_AUTHORIZATION')
-        token = token_header[6:]
-        print("Token from header: ", token)
-        if getToken != token:
-            return Response({"message":"Authentication UnSuccessfull"})
-        else:
-            return Response(f"User ID: {user_id}, Token: {getToken} , Mob : {user.mob}")
+# from django.shortcuts import get_object_or_404
+# @api_view(['GET'])
+# def user_detail(request, user_id):
+#     user = get_object_or_404(User, pk=user_id)
+#     if user is not None:
+#         getToken = Token.objects.get(user=user)
+#         print("Token from user id:   ",getToken)
+#         token_header = request.META.get('HTTP_AUTHORIZATION')
+#         token = token_header[6:]
+#         print("Token from header: ", token)
+#         if getToken != token:
+#             return Response({"message":"Authentication UnSuccessfull"})
+#         else:
+#             return Response(f"User ID: {user_id}, Token: {getToken} , Mob : {user.mob}")
         
-class UserBankAccountView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    # queryset = UserBankAccount.objects.all()
-    # serializer_class = UserBankAccountSerializer
-    # filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    # filter_fields = ['user__user__userId','user__user__id','user']
-    def get(self,request,user_id):
-        user = get_object_or_404(User, pk=user_id)
-        print("user  ",user)
-        muser = ModicareUser.objects.get(user=user)
-        print("muser  ",muser)
-        if user is not None:
-                Queryset = UserBankAccount.objects.filter(user=muser)
-                print("queryset", Queryset)
-                serializer = UserBankAccountSerializer(Queryset,many=True)
-                return Response(serializer.data, status=200)
-                # return queryset
-        else:
-                return Response({"error": "user is not exist"}, status=400)
+# class UserBankAccountView(APIView):
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     # queryset = UserBankAccount.objects.all()
+#     # serializer_class = UserBankAccountSerializer
+#     # filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+#     # filter_fields = ['user__user__userId','user__user__id','user']
+#     def get(self,request,user_id):
+#         user = get_object_or_404(User, pk=user_id)
+#         print("user  ",user)
+#         muser = ModicareUser.objects.get(user=user)
+#         print("muser  ",muser)
+#         if user is not None:
+#                 Queryset = UserBankAccount.objects.filter(user=muser)
+#                 print("queryset", Queryset)
+#                 serializer = UserBankAccountSerializer(Queryset,many=True)
+#                 return Response(serializer.data, status=200)
+#                 # return queryset
+#         else:
+#                 return Response({"error": "user is not exist"}, status=400)
 
-class Another_UserBankAccountView(viewsets.ModelViewSet):
+class UserBankAccountView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = UserBankAccount.objects.all()
