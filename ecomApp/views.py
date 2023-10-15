@@ -406,16 +406,23 @@ class StandardResultsSetPagination(PageNumberPagination):
 #                 return Response({"error": "user is not exist"}, status=400)
 
 class UserBankAccountView(viewsets.ModelViewSet):
+    print('1')
     authentication_classes = [TokenAuthentication]
+    print('2')
     permission_classes = [IsAuthenticated]
+    print('3')
     queryset = UserBankAccount.objects.all()
+    print('4')
     serializer_class = UserBankAccountSerializer
-    Search_backends = [filters.SearchFilter]
-    search_fields = ['user__user__id']
+    print('5')
+    # Search_backends = [filters.SearchFilter]
+    # search_fields = ['user__user__id']
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, user_id):
+        print("jhbxs")
         try:
-            queryset = UserBankAccount.objects.get(user__user__id=pk)
+            print(user_id)
+            queryset = UserBankAccount.objects.get(user__pk=user_id)
             serializer = UserBankAccountSerializer(queryset)
             return Response(serializer.data, status=200)
         except UserBankAccount.DoesNotExist:
