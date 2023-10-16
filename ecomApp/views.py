@@ -422,26 +422,29 @@ class UserBankAccountView(viewsets.ModelViewSet):
             return Response({"error": "Bank detail not found for the given user ID"}, status=404)
         
     def create(self, request):
-        user_id = request.data.get('user_id')
-        bank_account_data = request.data.get('bank_account_data')
-        user = User.objects.get(pk=user_id)
-        print(user)
+        try:
+            user_id = request.data.get('user_id')
+            bank_account_data = request.data.get('bank_account_data')
+            user = User.objects.get(pk=user_id)
+            print(user)
 
-        # muser = ModicareUser.objects.get(user=user)
-        # print(muser)
-        # Create a new UserBankAccount instance and associate it with the user
-        user_bank_account_data = {
-            "user": user.pk,
-            **bank_account_data
-        }
-        print(user_bank_account_data)
-        serializer = UserBankAccountSerializer(data=user_bank_account_data)
+            # muser = ModicareUser.objects.get(user=user)
+            # print(muser)
+            # Create a new UserBankAccount instance and associate it with the user
+            user_bank_account_data = {
+                "user": user.pk,
+                **bank_account_data
+            }
+            print(user_bank_account_data)
+            serializer = UserBankAccountSerializer(data=user_bank_account_data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        else:
-            return Response(serializer.errors, status=400)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=201)
+            else:
+                return Response(serializer.errors, status=400)
+        except:
+              return Response({"error": "Bank detail already found for the given user ID"}, status=404) 
         
     def put(self, request):
         user_id = request.data.get('user_id')

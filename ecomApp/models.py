@@ -88,7 +88,7 @@ def random_alphanumeric_string(length):
 
 class UserBankAccount(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,unique=True)
     bank_name = models.CharField(max_length=50, null=True)
     account_number = models.CharField(max_length=30)
     ifsc_code = models.CharField(max_length=30)
