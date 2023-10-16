@@ -91,6 +91,6 @@ urlpatterns = [
     path('credit/section-text/', views.CreditSectionText.as_view()),
     path('howtocollectbv/', views.HowToCollectBVView.as_view()),
     path('watch_vid_btn/', views.watchVideoAdsBtn.as_view(), name="watch_vid_btn"),
-    path('home-section', views.HomeSection.as_view())
+    path('home-section', views.HomeSection.as_view()),
 ]
 

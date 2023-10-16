@@ -470,6 +470,11 @@ class DynamicTimerView(viewsets.ModelViewSet):
     serializer_class = DynamicTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class AmulHerbalCreditTimerView(viewsets.ModelViewSet):
+    queryset = AmulHerbalCreditTimer.objects.all()
+    serializer_class = AmulHerbalCreditTimerSerializer
+    permission_classes=[IsAuthenticatedAdmin]
+
 def test(request):
     return JsonResponse({"status":"OK"})
 

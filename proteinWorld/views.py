@@ -467,6 +467,11 @@ class DynamicTimerView(viewsets.ModelViewSet):
     serializer_class = DynamicTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class proteinWorldCreditTimerView(viewsets.ModelViewSet):
+    queryset = proteinWorldCreditTimer.objects.all()
+    serializer_class = proteinWorldCreditTimerSerializer
+    permission_classes=[IsAuthenticatedAdmin]
+
 def test(request):
     return JsonResponse({"status":"OK"})
 

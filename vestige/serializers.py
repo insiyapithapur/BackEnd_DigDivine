@@ -287,3 +287,8 @@ class DynamicTimerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DynamicTimer
         fields = '__all__'
+
+class VestigeCreditTimerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DynamicTimer
+        fields = '__all__'

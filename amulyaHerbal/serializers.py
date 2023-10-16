@@ -283,6 +283,11 @@ class DynamicTimerSerializer(serializers.ModelSerializer):
         model = DynamicTimer
         fields = '__all__'
 
+class AmulHerbalCreditTimerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DynamicTimer
+        fields = '__all__'
+
 class HowToCollectBVSerializer(serializers.ModelSerializer):
     class Meta:
         model = HowToCollectBV

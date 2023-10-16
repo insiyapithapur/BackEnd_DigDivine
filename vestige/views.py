@@ -486,6 +486,11 @@ class DynamicTimerView(viewsets.ModelViewSet):
     serializer_class = DynamicTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class VestigeCreditTimerView(viewsets.ModelViewSet):
+    queryset = VestigeCreditTimer.objects.all()
+    serializer_class = VestigeCreditTimerSerializer
+    permission_classes=[IsAuthenticatedAdmin]
+
 def test(request):
     return JsonResponse({"status":"OK"})
 

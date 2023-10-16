@@ -48,6 +48,7 @@ router.register(r'bv-requests', views.BVRequestViewSet)
 router.register(r'bv-admin-requests', views.BVRequestAdminView)
 router.register(r'view-all-offer', views.ViewAllOffersView)
 router.register(r'dynamic-timer', views.DynamicTimerView)
+router.register(r'credit-timer', views.hhiCreditTimerView)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -479,7 +479,7 @@ class UserBankAccountView(viewsets.ModelViewSet):
         return Response({"message": "UserBankAccount deleted successfully"}, status=200)
         # else:
             # return Response({"error": "Permission denied"}, status=403)
-
+        
 class UserView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     queryset = User.objects.all()
@@ -780,7 +780,6 @@ class CreditTimerView(viewsets.ModelViewSet):
     queryset = CreditTimer.objects.all()
     serializer_class = CreditTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
-
 
 class CountDatas(APIView):
     permission_classes = [IsAdminUser]

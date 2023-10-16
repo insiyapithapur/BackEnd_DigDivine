@@ -472,6 +472,11 @@ class DynamicTimerView(viewsets.ModelViewSet):
     serializer_class = DynamicTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class hhiCreditTimerView(viewsets.ModelViewSet):
+    queryset = hhiCreditTimer.objects.all()
+    serializer_class = hhiCreditTimerSerializer
+    permission_classes=[IsAuthenticatedAdmin]
+
 def test(request):
     try:
         Product.objects.all().update(status=True)
