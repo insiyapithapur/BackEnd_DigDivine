@@ -1048,6 +1048,22 @@ class watchVideoAdsBtn(APIView):
             return Response({"status":"success"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class DoAccessCredit(APIView):
+    permission_classes = [IsAuthenticatedUser]
+    def post(self, request):
+        try:
+            userId = request.data.get('user_id')
+            vid_btn_hit = CreditAccess.objects.filter(user=User.objects.get(id=userId))
+            print("vid_btn_hit",vid_btn_hit)
+            if(vid_btn_hit.exists()):
+                timediff = (dTime.now(timezone.utc) - vid_btn_hit.first().updated_at).total_seconds() / 60
+                if (int(timediff) <= 40):
+                    return Response({"status":"success","timeleft":timediff}, status=status.HTTP_200_OK)
+            obj, created = CreditAccess.objects.update_or_create(user=User.objects.get(id=userId))
+            return Response({"status":"success"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
 
 class checkVideoAds(APIView):
     permission_classes = [IsAuthenticatedUser]
@@ -1057,6 +1073,7 @@ class checkVideoAds(APIView):
             dynamic_time = DynamicTimer.objects.all().first()
             post_click = float(dynamic_time.post_click_wvdo_btn) or 60
             pre_click = float(dynamic_time.pre_click_wvdo_btn) or 0.5
+            print("vid_btn_hit",vid_btn_hit)
             if(vid_btn_hit.exists()):
                 timediff = (dTime.now(timezone.utc) - vid_btn_hit.first().updated_at).total_seconds() / 60
                 if (int(timediff) <= post_click):
@@ -1070,6 +1087,7 @@ class checkCreditAccess(APIView):
     def get(self, request, user_id):
         try:
             vid_btn_hit = CreditAccess.objects.filter(user=User.objects.get(id=user_id))
+            print("vid_btn_hit",vid_btn_hit.first().updated_at)
             credit_time = AmulHerbalCreditTimer.objects.all().first()
             post_click = float(credit_time.post_click_wvdo_btn) or 60
             pre_click = float(credit_time.pre_click_wvdo_btn) or 0.5

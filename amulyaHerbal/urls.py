@@ -73,7 +73,7 @@ urlpatterns = [
     path('user/<user_id>/profile_picture/', views.UserProfilePicture),
     path('daily-checkin/<user_id>', views.dailyCheckIn),
     path('check-videoads/<user_id>', views.checkVideoAds.as_view()),
-    path('check-creditaccess/<user_id>', views.checkCreditAccess.as_view()),
+    path('check-creditaccess/<user_id>', views.checkCreditAccess.as_view()), ##get
     path('pdf/<order_id>', views.GeneratePdf.as_view()), 
     path('postback/conversation', views.CpaLeadPostBack.as_view()),
     path('add/coin/', views.AddCoin),
@@ -86,5 +86,6 @@ urlpatterns = [
     path('credit/section-text/', views.CreditSectionText.as_view()),
     path('howtocollectbv/', views.HowToCollectBVView.as_view()),
     path('watch_vid_btn/', views.watchVideoAdsBtn.as_view(), name="watch_vid_btn"),
+    path('DoAccessCredit/', views.DoAccessCredit.as_view(), name="Do-Access-Credit"),##post
     path('home-section', views.HomeSection.as_view())
 ]
