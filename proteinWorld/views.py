@@ -472,6 +472,17 @@ class proteinWorldCreditTimerView(viewsets.ModelViewSet):
     serializer_class = proteinWorldCreditTimerSerializer
     permission_classes=[IsAuthenticatedAdmin]
 
+class DoAccessCredit(APIView):
+    permission_classes = [IsAuthenticatedUser]
+    def post(self, request):
+        try:
+            userId = request.data.get('user_id')
+            obj, created = PWCreditAccess.objects.update_or_create(user=User.objects.get(id=userId))
+            return Response({"status":"success"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class checkCreditAccess(APIView):
     permission_classes = [IsAuthenticatedUser]
     def get(self, request, user_id):
@@ -483,25 +494,11 @@ class checkCreditAccess(APIView):
             pre_click = float(credit_time.pre_click_wvdo_btn) or 0.5
             if(vid_btn_hit.exists()):
                 timediff = (dTime.now(timezone.utc) - vid_btn_hit.first().updated_at).total_seconds() / 60
-                if (int(timediff) <= post_click):
+                if (int(timediff) <= post_click and max(post_click - int(timediff), 0) > pre_click): #post_click dominates
                     return Response({"status":"failed", "message":f"Credit section will be available after {post_click-int(timediff)} minutes", "timeleft":post_click-timediff}, status=status.HTTP_200_OK)
-            return Response({"status":"success", "message":"Credit section is available", "timeleft":pre_click}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
-        
-class DoAccessCredit(APIView):
-    permission_classes = [IsAuthenticatedUser]
-    def post(self, request):
-        try:
-            userId = request.data.get('user_id')
-            vid_btn_hit = PWCreditAccess.objects.filter(user=User.objects.get(id=userId))
-            print("vid_btn_hit",vid_btn_hit)
-            if(vid_btn_hit.exists()):
-                timediff = (dTime.now(timezone.utc) - vid_btn_hit.first().updated_at).total_seconds() / 60
-                if (int(timediff) <= 40):
-                    return Response({"status":"success","timeleft":timediff}, status=status.HTTP_200_OK)
-            obj, created = PWCreditAccess.objects.update_or_create(user=User.objects.get(id=userId))
-            return Response({"status":"success"}, status=status.HTTP_200_OK)
+                if(max(post_click - int(timediff), 0) < pre_click):
+                    return Response({"status":"failed", "message":f"Credit section will be available after {pre_click} minutes", "timeleft":pre_click}, status=status.HTTP_200_OK)
+            return Response({"status":"success", "message":"Credit section is available"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
 
