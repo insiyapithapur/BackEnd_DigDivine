@@ -1064,6 +1064,22 @@ class checkVideoAds(APIView):
             return Response({"status":"failed", "message":"video ads available", "timeleft":pre_click}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class checkCreditAccess(APIView):
+    permission_classes = [IsAuthenticatedUser]
+    def get(self, request, user_id):
+        try:
+            vid_btn_hit = CreditAccess.objects.filter(user=User.objects.get(id=user_id))
+            credit_time = AmulHerbalCreditTimer.objects.all().first()
+            post_click = float(credit_time.post_click_wvdo_btn) or 60
+            pre_click = float(credit_time.pre_click_wvdo_btn) or 0.5
+            if(vid_btn_hit.exists()):
+                timediff = (dTime.now(timezone.utc) - vid_btn_hit.first().updated_at).total_seconds() / 60
+                if (int(timediff) <= post_click):
+                    return Response({"status":"failed", "message":f"Credit section will be available after {post_click-int(timediff)} minutes", "timeleft":post_click-timediff}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"status":"success", "message":"Credit section is available", "timeleft":pre_click}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"status":"error","message":f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
     
 def getHost(request):
     host = request.get_host()

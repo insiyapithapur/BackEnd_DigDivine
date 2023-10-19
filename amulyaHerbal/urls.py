@@ -73,6 +73,7 @@ urlpatterns = [
     path('user/<user_id>/profile_picture/', views.UserProfilePicture),
     path('daily-checkin/<user_id>', views.dailyCheckIn),
     path('check-videoads/<user_id>', views.checkVideoAds.as_view()),
+    path('check-creditaccess/<user_id>', views.checkCreditAccess.as_view()),
     path('pdf/<order_id>', views.GeneratePdf.as_view()), 
     path('postback/conversation', views.CpaLeadPostBack.as_view()),
     path('add/coin/', views.AddCoin),
