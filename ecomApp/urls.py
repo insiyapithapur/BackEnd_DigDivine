@@ -52,6 +52,7 @@ router.register(r'dynamic-timer', views.DynamicTimerView)
 router.register(r'credit-timer', views.CreditTimerView)
 router.register(r'bank-detail', views.UserBankAccountView)
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('user/<pk>/', csrf_exempt(views.ModicareUserInfo.as_view())),
@@ -92,5 +93,7 @@ urlpatterns = [
     path('howtocollectbv/', views.HowToCollectBVView.as_view()),
     path('watch_vid_btn/', views.watchVideoAdsBtn.as_view(), name="watch_vid_btn"),
     path('home-section', views.HomeSection.as_view()),
+    path('check-creditaccess/<user_id>', views.checkCreditAccess.as_view()), ##get
+    path('DoAccessCredit/', views.DoAccessCredit.as_view(), name="Do-Access-Credit"),##post
 ]
 
